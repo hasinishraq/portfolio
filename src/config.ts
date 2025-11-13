@@ -69,6 +69,13 @@ export const siteConfig = {
   ],
   projects: [
     {
+      name: "Algorithm Visualizer",
+      description:
+        "Interactive playground that demonstrates sorting, pathfinding, and tree/graph algorithms with synced pseudocode, sliders, and 3D visuals.",
+      link: "/algorithm-playground",
+      skills: ["Astro", "React", "Three.js", "Tailwind CSS"],
+    },
+    {
       name: "FundBridge",
       description:
         "Peer-to-peer lending and crowdfunding platform that lets users securely invest or raise funds through an integrated payment gateway.",
