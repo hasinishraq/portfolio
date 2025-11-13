@@ -1,0 +1,98 @@
+---
+import { siteConfig } from "../config";
+
+const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
+const hasTechStack = siteConfig.techStack && siteConfig.techStack.length > 0;
+const hasExperience = siteConfig.experience && siteConfig.experience.length > 0;
+const hasEducation = siteConfig.education && siteConfig.education.length > 0;
+const currentPath = Astro.url.pathname;
+const isHome = currentPath === "/";
+const sectionHref = (section: string) => (isHome ? `#${section}` : `/#${section}`);
+const homeHref = isHome ? "#" : "/";
+const navItems = [
+  { label: "Home", href: homeHref, show: true },
+  { label: "About", href: sectionHref("about"), show: true },
+  { label: "Tech & Stack", href: sectionHref("tech-stack"), show: hasTechStack },
+  { label: "Projects", href: sectionHref("projects"), show: hasProjects },
+  { label: "Experience", href: sectionHref("experience"), show: hasExperience },
+  { label: "Education", href: sectionHref("education"), show: hasEducation },
+].filter((item) => item.show);
+---
+
+<header
+  id="header"
+  class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/60 transition-all duration-300"
+>
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center justify-between md:justify-center">
+      <a href={homeHref} class="text-lg font-semibold tracking-tight text-gray-900 md:hidden">
+        {siteConfig.name}
+      </a>
+      <button
+        id="mobile-nav-toggle"
+        class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-black hover:bg-gray-100 focus:outline-none"
+        aria-controls="mobile-nav"
+        aria-expanded="false"
+      >
+        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <ul class="hidden md:flex items-center gap-8 justify-center mt-4 md:mt-0">
+      {navItems.map((item) => (
+        <li>
+          <a href={item.href} class="text-gray-700 hover:text-black transition-colors font-medium">
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <div id="mobile-nav" class="md:hidden hidden flex-col gap-4 mt-4 border-t border-gray-200 pt-4">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class="block text-base font-medium text-gray-700 hover:text-black transition-colors"
+          data-mobile-nav-link
+        >
+          {item.label}
+        </a>
+      ))}
+    </div>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById("mobile-nav-toggle");
+  const mobileNav = document.getElementById("mobile-nav");
+
+  toggle?.addEventListener("click", () => {
+    const isExpanded = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", (!isExpanded).toString());
+    mobileNav?.classList.toggle("hidden");
+  });
+
+  mobileNav?.querySelectorAll("[data-mobile-nav-link]").forEach((link) => {
+    link.addEventListener("click", () => {
+      mobileNav.classList.add("hidden");
+      toggle?.setAttribute("aria-expanded", "false");
+    });
+  });
+
+  window.addEventListener("scroll", () => {
+    const header = document.getElementById("header");
+    if (window.scrollY > 100) {
+      header?.classList.add("bg-white/80", "backdrop-blur-sm");
+    } else {
+      header?.classList.remove("bg-white/80", "backdrop-blur-sm");
+    }
+  });
+</script>
+
+<style>
+  html {
+    scroll-behavior: smooth;
+  }
+</style>

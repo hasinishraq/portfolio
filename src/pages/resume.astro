@@ -1,0 +1,71 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { siteConfig } from "../config";
+import "../styles/global.css";
+
+const pdfPath = "/resume.pdf";
+const pdfUrl = `${pdfPath}#zoom=page-width&view=FitH&scrollbar=1&toolbar=0`;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={`${siteConfig.name} - Resume`} />
+    <title>{siteConfig.name} - Resume</title>
+  </head>
+  <body class="bg-gray-50 text-gray-900">
+    <Header />
+    <main class="pt-24 pb-16 px-4 sm:px-8">
+      <section class="w-full bg-white rounded-2xl shadow-md border border-gray-100 p-4 sm:p-8">
+        <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+          <div>
+            <p class="text-sm uppercase tracking-widest text-gray-500">Resume</p>
+            <h1 class="text-3xl sm:text-4xl font-bold mt-2">
+              {siteConfig.name}
+            </h1>
+          </div>
+          <div class="flex gap-3">
+            <a
+              href={pdfPath}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center px-4 sm:px-6 py-2.5 rounded-full font-semibold text-white shadow transition-transform duration-200 hover:-translate-y-0.5"
+              style={`background-color: ${siteConfig.accentColor}`}
+            >
+              Open PDF
+            </a>
+            <a
+              href={pdfPath}
+              download
+              class="inline-flex items-center justify-center px-4 sm:px-6 py-2.5 rounded-full font-semibold border border-gray-200 text-gray-800 bg-gray-50 hover:bg-white transition-colors duration-200"
+            >
+              Download
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="w-full border border-gray-200 rounded-xl overflow-hidden bg-gray-100"
+          style="aspect-ratio: 210 / 297; max-height: calc(100vh - 220px);"
+        >
+          <iframe
+            src={pdfUrl}
+            class="w-full h-full min-h-[70vh] md:min-h-[900px]"
+            scrolling="auto"
+            title={`${siteConfig.name} Resume`}
+          >
+          </iframe>
+        </div>
+        <p class="text-sm text-gray-500 text-center mt-4 md:hidden">
+          Viewing on a small screen? Use the buttons above to open or download the full PDF.
+        </p>
+        </div>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>

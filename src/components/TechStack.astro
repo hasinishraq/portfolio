@@ -1,0 +1,51 @@
+---
+import { siteConfig } from "../config";
+const hasTechStack = siteConfig.techStack && siteConfig.techStack.length > 0;
+---
+
+{
+  hasTechStack && (
+    <section id="tech-stack" class="p-8 sm:p-12 md:p-16 lg:p-24 bg-gray-50">
+      <div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+          <div class="lg:col-span-4">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl xl:text-7xl font-bold text-gray-900">
+              Tech & Stack
+            </h2>
+            <p class="mt-4 text-lg text-gray-600">
+              Core technologies I use day to day across languages, frameworks, databases, and tooling.
+            </p>
+            <div
+              class="w-[75px] h-[5px] mt-6 rounded-full"
+              style={`background-color: ${siteConfig.accentColor}`}
+            />
+          </div>
+
+          <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {siteConfig.techStack.map((group) => (
+              <div class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <div class="flex items-center justify-between">
+                  <h3 class="text-xl font-semibold text-gray-900">
+                    {group.category}
+                  </h3>
+                  <span
+                    class="w-2.5 h-2.5 rounded-full"
+                    style={`background-color: ${siteConfig.accentColor}`}
+                  />
+                </div>
+
+                <div class="mt-4 flex flex-wrap gap-2">
+                  {group.items.map((item) => (
+                    <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
