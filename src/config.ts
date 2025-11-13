@@ -41,7 +41,7 @@ export const siteConfig = {
   techStack: [
     {
       category: "Programming Languages",
-      items: ["C", "C++", "Java", "Python", "SQL"],
+      items: ["C", "C++", "Java", "Python","JavaScript","PHP","SQL"],
     },
     {
       category: "Frameworks & Libraries",
@@ -55,6 +55,7 @@ export const siteConfig = {
         "Pandas",
         "TensorFlow",
         "PyTorch",
+        "YOLO",
       ],
     },
     {
@@ -63,7 +64,7 @@ export const siteConfig = {
     },
     {
       category: "Tools & Platforms",
-      items: ["Git", "Docker", "Linux"],
+      items: ["Git", "Docker", "Linux", "AWS", "Azure"],
     },
   ],
   projects: [
