@@ -7,9 +7,10 @@ const hasExperience = siteConfig.experience && siteConfig.experience.length > 0;
 const hasEducation = siteConfig.education && siteConfig.education.length > 0;
 const currentPath = Astro.url.pathname;
 const isHome = currentPath === "/";
+const isPlaygroundPage = currentPath?.startsWith("/algorithm-playground");
 const sectionHref = (section: string) => (isHome ? `#${section}` : `/#${section}`);
 const homeHref = isHome ? "#" : "/";
-const navItems = [
+const baseNavItems = [
   { label: "Home", href: homeHref, show: true },
   { label: "About", href: sectionHref("about"), show: true },
   { label: "Tech & Stack", href: sectionHref("tech-stack"), show: hasTechStack },
@@ -17,21 +18,48 @@ const navItems = [
   { label: "Experience", href: sectionHref("experience"), show: hasExperience },
   { label: "Education", href: sectionHref("education"), show: hasEducation },
   { label: "Playground", href: "/algorithm-playground", show: true },
-].filter((item) => item.show);
+];
+const playgroundNavItems = [
+  { label: "Overview", href: "#playground-top", show: true },
+  { label: "Sorting", href: "#sorting", show: true },
+  { label: "Pathfinding", href: "#pathfinding", show: true },
+  { label: "Tree & Graph", href: "#tree-graph", show: true },
+  { label: "Portfolio", href: "/", show: true },
+];
+const navItems = (isPlaygroundPage ? playgroundNavItems : baseNavItems).filter((item) => item.show);
+const headerThemeClasses = isPlaygroundPage
+  ? "bg-slate-950/60 supports-[backdrop-filter]:bg-slate-950/40 text-white"
+  : "bg-white/90 supports-[backdrop-filter]:bg-white/60 text-gray-900";
+const desktopLinkClasses = isPlaygroundPage
+  ? "text-slate-200 hover:text-white"
+  : "text-gray-700 hover:text-black";
+const mobileLinkClasses = isPlaygroundPage
+  ? "text-slate-200 hover:text-white"
+  : "text-gray-700 hover:text-black";
+const menuButtonClasses = isPlaygroundPage
+  ? "text-slate-200 hover:text-white hover:bg-white/10"
+  : "text-gray-700 hover:text-black hover:bg-gray-100";
+const mobileBorderClass = isPlaygroundPage ? "border-white/10" : "border-gray-200";
+const scrollClass = isPlaygroundPage ? "bg-slate-950/80 shadow-lg" : "bg-white/80 shadow";
 ---
 
 <header
   id="header"
-  class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/60 transition-all duration-300"
+  class={`fixed top-0 left-0 right-0 z-50 backdrop-blur transition-all duration-300 ${headerThemeClasses}`}
+  data-scroll-class={scrollClass}
+  data-scroll-blur="backdrop-blur-sm"
 >
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
     <div class="flex items-center justify-between md:justify-center">
-      <a href={homeHref} class="text-lg font-semibold tracking-tight text-gray-900 md:hidden">
+      <a
+        href={homeHref}
+        class={`text-lg font-semibold tracking-tight md:hidden ${isPlaygroundPage ? "text-white" : "text-gray-900"}`}
+      >
         {siteConfig.name}
       </a>
       <button
         id="mobile-nav-toggle"
-        class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-black hover:bg-gray-100 focus:outline-none"
+        class={`md:hidden inline-flex items-center justify-center p-2 rounded-md focus:outline-none ${menuButtonClasses}`}
         aria-controls="mobile-nav"
         aria-expanded="false"
       >
@@ -44,18 +72,18 @@ const navItems = [
     <ul class="hidden md:flex items-center gap-8 justify-center mt-4 md:mt-0">
       {navItems.map((item) => (
         <li>
-          <a href={item.href} class="text-gray-700 hover:text-black transition-colors font-medium">
+          <a href={item.href} class={`transition-colors font-medium ${desktopLinkClasses}`}>
             {item.label}
           </a>
         </li>
       ))}
     </ul>
 
-    <div id="mobile-nav" class="md:hidden hidden flex-col gap-4 mt-4 border-t border-gray-200 pt-4">
+    <div id="mobile-nav" class={`md:hidden hidden flex-col gap-4 mt-4 border-t pt-4 ${mobileBorderClass}`}>
       {navItems.map((item) => (
         <a
           href={item.href}
-          class="block text-base font-medium text-gray-700 hover:text-black transition-colors"
+          class={`block text-base font-medium transition-colors ${mobileLinkClasses}`}
           data-mobile-nav-link
         >
           {item.label}
@@ -84,10 +112,15 @@ const navItems = [
 
   window.addEventListener("scroll", () => {
     const header = document.getElementById("header");
+    if (!header) return;
+    const scrollClasses = header.dataset.scrollClass?.split(" ").filter(Boolean) ?? [];
+    const blurClass = header.dataset.scrollBlur;
     if (window.scrollY > 100) {
-      header?.classList.add("bg-white/80", "backdrop-blur-sm");
+      scrollClasses.forEach((cls) => header.classList.add(cls));
+      if (blurClass) header.classList.add(blurClass);
     } else {
-      header?.classList.remove("bg-white/80", "backdrop-blur-sm");
+      scrollClasses.forEach((cls) => header.classList.remove(cls));
+      if (blurClass) header.classList.remove(blurClass);
     }
   });
 </script>
