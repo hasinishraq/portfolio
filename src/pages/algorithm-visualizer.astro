@@ -1,0 +1,160 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { siteConfig } from "../config";
+import "../styles/global.css";
+
+const visualizerSections = [
+  {
+    id: "sorting",
+    icon: "🔄",
+    title: "Sorting Algorithms",
+    description:
+      "Demonstrate how different comparison-based sorting techniques reorder data by animating each swap and comparison on a bar chart.",
+    algorithms: ["Bubble Sort", "Selection Sort", "Insertion Sort", "Quick Sort", "Merge Sort"],
+    features: ["Bars representing array elements", "Step-by-step animation", "Highlight comparisons & swaps"],
+  },
+  {
+    id: "pathfinding",
+    icon: "🗺️",
+    title: "Pathfinding Algorithms",
+    description:
+      "Help users explore how graph search strategies behave on a grid by animating wavefront expansion, visited cells, and optimal routes.",
+    algorithms: ["BFS", "DFS", "A*", "Dijkstra"],
+    features: ["Grid visualization", "Start & end points", "Walls & obstacles", "Animated path discovery"],
+  },
+  {
+    id: "tree-graph",
+    icon: "🌲",
+    title: "Tree & Graph Algorithms",
+    description:
+      "Bring structural algorithms to life with node-link diagrams that highlight traversal order and self-balancing rotations.",
+    algorithms: ["Binary Tree traversals (Inorder, Preorder, Postorder)", "AVL / Red-Black rotations", "Graph traversal animations"],
+    features: ["Interactive node highlighting", "Rotation previews", "Traversal order playback"],
+  },
+];
+
+const dynamicProgramming = {
+  icon: "🔁",
+  title: "Dynamic Programming Visualizer",
+  description:
+    "Use a grid-based table to show how overlapping subproblems build up final answers, whether through memoization or tabulation.",
+  features: ["Grid-based DP table", "Shows how values fill in"],
+  examples: ["Longest Common Subsequence", "0/1 Knapsack", "Fibonacci memoization & tabulation"],
+};
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="Algorithm Visualizer feature breakdown for {siteConfig.name}" />
+    <title>Algorithm Visualizer | {siteConfig.name}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-50 text-gray-900">
+    <Header />
+    <main class="pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto space-y-16">
+      <section class="text-center space-y-6">
+        <p class="text-sm uppercase tracking-[0.3em] text-gray-500">What Your Visualizer Can Include</p>
+        <h1 class="text-4xl sm:text-5xl font-semibold tracking-tight">Algorithm Visualizer Blueprint</h1>
+        <p class="text-lg max-w-3xl mx-auto text-gray-600">
+          Map out every module before writing a single line of code. This page details the algorithms, UI elements, and
+          animations that will make your visualizer engaging for learners and interview prep alike.
+        </p>
+      </section>
+
+      <section class="grid gap-8">
+        {visualizerSections.map((section) => (
+          <article id={section.id} class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 md:p-10 space-y-6">
+            <header class="flex flex-col gap-3">
+              <span class="text-3xl">{section.icon}</span>
+              <h2 class="text-3xl font-semibold">{section.title}</h2>
+              <p class="text-gray-600">{section.description}</p>
+            </header>
+
+            <div class="grid gap-6 md:grid-cols-2">
+              <div class="space-y-3">
+                <h3 class="text-sm font-semibold uppercase tracking-wide text-gray-500">Algorithms</h3>
+                <ul class="space-y-2 text-base">
+                  {section.algorithms.map((item) => (
+                    <li class="flex items-start gap-3">
+                      <span class="mt-1 h-2 w-2 rounded-full bg-blue-500"></span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div class="space-y-3">
+                <h3 class="text-sm font-semibold uppercase tracking-wide text-gray-500">Visualizer Features</h3>
+                <ul class="space-y-2 text-base">
+                  {section.features.map((feature) => (
+                    <li class="flex items-start gap-3">
+                      <span class="mt-1 h-2 w-2 rounded-full bg-emerald-500"></span>
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </article>
+        ))}
+      </section>
+
+      <section class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 md:p-10 space-y-6">
+        <header class="flex flex-col gap-3">
+          <span class="text-3xl">{dynamicProgramming.icon}</span>
+          <h2 class="text-3xl font-semibold">{dynamicProgramming.title}</h2>
+          <p class="text-gray-600">{dynamicProgramming.description}</p>
+        </header>
+
+        <div class="grid gap-6 md:grid-cols-2">
+          <div class="space-y-3">
+            <h3 class="text-sm font-semibold uppercase tracking-wide text-gray-500">Core Features</h3>
+            <ul class="space-y-2 text-base">
+              {dynamicProgramming.features.map((feature) => (
+                <li class="flex items-start gap-3">
+                  <span class="mt-1 h-2 w-2 rounded-full bg-purple-500"></span>
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class="space-y-3">
+            <h3 class="text-sm font-semibold uppercase tracking-wide text-gray-500">Example Problems</h3>
+            <ul class="space-y-2 text-base">
+              {dynamicProgramming.examples.map((example) => (
+                <li class="flex items-start gap-3">
+                  <span class="mt-1 h-2 w-2 rounded-full bg-orange-500"></span>
+                  <span>{example}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-blue-50 border border-blue-100 rounded-3xl p-8 md:p-10 text-center space-y-4">
+        <p class="text-sm uppercase tracking-[0.3em] text-blue-600">Next Steps</p>
+        <h2 class="text-2xl font-semibold">Ready to build it?</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          Pair these specs with interactive controls (speed sliders, data presets, pause / play buttons) and you have a
+          full roadmap for the visualizer section of your portfolio.
+        </p>
+        <a
+          href="/"
+          class="inline-flex items-center justify-center rounded-full bg-blue-600 text-white px-6 py-3 font-medium hover:bg-blue-700 transition-colors"
+        >
+          Back to Portfolio
+        </a>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>
+

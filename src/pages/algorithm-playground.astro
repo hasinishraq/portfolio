@@ -1,0 +1,101 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import AlgorithmPlayground from "../components/AlgorithmPlayground";
+import PathfindingPlayground from "../components/PathfindingPlayground";
+import TreeGraphPlayground from "../components/TreeGraphPlayground";
+import { siteConfig } from "../config";
+import "../styles/global.css";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="Algorithm Playground - interactive sorting visualizer by {siteConfig.name}" />
+    <title>Algorithm Playground | {siteConfig.name}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-slate-950 text-white">
+    <Header />
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24 space-y-12">
+      <section class="space-y-4 text-center">
+        <p class="text-xs uppercase tracking-[0.3em] text-blue-400">Algorithm Playground</p>
+        <h1 class="text-4xl sm:text-5xl font-semibold tracking-tight">A Working Visualizer</h1>
+        <p class="mx-auto max-w-3xl text-base text-slate-300">
+          Crafting interview-ready intuition with React, Tailwind CSS, Three.js, and a buttery smooth canvas animation
+          loop. Adjust sliders, swap algorithms, and watch color-coded operations update the pseudocode in sync.
+        </p>
+      </section>
+
+      <section class="grid gap-6 md:grid-cols-3">
+        <article class="rounded-3xl border border-white/10 bg-white/5 p-6 text-left">
+          <p class="text-xs uppercase tracking-[0.3em] text-blue-300">Sorting Lab</p>
+          <h2 class="mt-2 text-2xl font-semibold">3D Array Playground</h2>
+          <p class="mt-3 text-sm text-slate-200">
+            Full control over array size, playback speed, and algorithm selection. Three.js renders every bar as a lit mesh while
+            pseudocode tracks each comparison or swap.
+          </p>
+        </article>
+        <article class="rounded-3xl border border-white/10 bg-white/5 p-6 text-left">
+          <p class="text-xs uppercase tracking-[0.3em] text-emerald-300">Pathfinding Lab</p>
+          <h2 class="mt-2 text-2xl font-semibold">Interactive Grid Explorer</h2>
+          <p class="mt-3 text-sm text-slate-200">
+            Paint walls, reposition the start/end points, and watch BFS, DFS, Dijkstra, or A* animate their search over a
+            canvas-based grid with color-coded states.
+          </p>
+        </article>
+        <article class="rounded-3xl border border-white/10 bg-white/5 p-6 text-left">
+          <p class="text-xs uppercase tracking-[0.3em] text-fuchsia-300">Tree & Graph Lab</p>
+          <h2 class="mt-2 text-2xl font-semibold">Structure Visuals</h2>
+          <p class="mt-3 text-sm text-slate-200">
+            Binary tree traversals, AVL/Red-Black rotations, and graph BFS/DFS all run from one control panel with animated
+            pseudocode and color-coded nodes.
+          </p>
+        </article>
+      </section>
+
+      <section id="sorting" class="space-y-6">
+        <div class="text-center space-y-2">
+          <p class="text-xs uppercase tracking-[0.3em] text-blue-400">Sorting Playground</p>
+          <h2 class="text-3xl font-semibold">3D Sorting Visualizer</h2>
+          <p class="text-sm text-slate-300">
+            Built with React, Tailwind CSS, and Three.js. Includes speed + array sliders, algorithm dropdown, color-coded
+            operations, and animated pseudocode.
+          </p>
+        </div>
+        <AlgorithmPlayground client:load />
+      </section>
+
+      <section id="pathfinding" class="space-y-6">
+        <div class="text-center space-y-2">
+          <p class="text-xs uppercase tracking-[0.3em] text-emerald-300">Pathfinding Playground</p>
+          <h2 class="text-3xl font-semibold">Canvas Grid Visualizer</h2>
+          <p class="text-sm text-slate-300">
+            BFS, DFS, Dijkstra, and A* run on the same grid with start/end handles, random walls, playback controls, and animated
+            pseudocode.
+          </p>
+        </div>
+        <PathfindingPlayground client:load />
+      </section>
+
+      <section id="tree-graph" class="space-y-6">
+        <div class="text-center space-y-2">
+          <p class="text-xs uppercase tracking-[0.3em] text-fuchsia-300">Tree & Graph Playground</p>
+          <h2 class="text-3xl font-semibold">Structure & Traversal Visualizer</h2>
+          <p class="text-sm text-slate-300">
+            Switch between binary tree traversals, AVL/Red-Black rotations, and graph BFS/DFS animations. Each mode syncs with
+            pseudocode so the theory sticks.
+          </p>
+        </div>
+        <TreeGraphPlayground client:load />
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>
