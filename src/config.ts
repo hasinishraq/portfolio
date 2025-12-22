@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "Hasin Ishraq",
-  title: "Final Year Computer Science Student",
+  title: "A Final Year Computer Science Student",
   description: "Portfolio website of Hasin Ishraq",
   accentColor: "#1d4ed8",
   social: {
